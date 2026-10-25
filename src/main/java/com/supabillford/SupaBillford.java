@@ -288,6 +288,19 @@ public final class SupaBillford extends JavaPlugin implements Listener {
     }
 
     private ItemStack createItem(Map<?, ?> values) {
+        // A complete ItemStack saved with /setbillforditem can be referenced from config.
+        Object itemKey = values.get("item-key");
+        if (itemKey != null) {
+            ItemStack saved = getConfig().getItemStack("trade-items." + itemKey.toString());
+            if (saved == null || saved.getType().isAir()) {
+                getLogger().warning("Unknown saved item key in config: " + itemKey);
+                return new ItemStack(Material.AIR);
+            }
+            ItemStack copy = saved.clone();
+            int configuredAmount = parseInt(values.get("amount"), copy.getAmount());
+            copy.setAmount(Math.max(1, Math.min(99, configuredAmount)));
+            return copy;
+        }
         String materialName = Objects.toString(values.get("material"), "AIR");
         Material material = Material.matchMaterial(materialName);
         if (material == null) {
