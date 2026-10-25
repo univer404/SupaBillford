@@ -354,14 +354,18 @@ public final class SupaBillford extends JavaPlugin implements Listener {
 
     private String color(String text) {
         if (text == null) return "";
-        // Supports legacy colors, hex <#RRGGBB>, and MiniMessage-style <##RRGGBB>.
-        String converted = text.replaceAll("(?i)<##([0-9a-f]{6})>", "<#$1>");
-        try {
-            return net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection()
-                    .serialize(net.kyori.adventure.text.minimessage.MiniMessage.miniMessage().deserialize(converted));
-        } catch (Exception ignored) {
-            return org.bukkit.ChatColor.translateAlternateColorCodes('&', text);
+        // Convert <##RRGGBB> and <#RRGGBB> to legacy hex, then translate & color codes.
+        java.util.regex.Matcher matcher = java.util.regex.Pattern
+                .compile("(?i)<##?([0-9a-f]{6})>").matcher(text);
+        StringBuffer converted = new StringBuffer();
+        while (matcher.find()) {
+            String hex = matcher.group(1);
+            StringBuilder legacyHex = new StringBuilder("§x");
+            for (char digit : hex.toCharArray()) legacyHex.append('§').append(digit);
+            matcher.appendReplacement(converted, java.util.regex.Matcher.quoteReplacement(legacyHex.toString()));
         }
+        matcher.appendTail(converted);
+        return org.bukkit.ChatColor.translateAlternateColorCodes('&', converted.toString());
     }
 
     private String readableName(Material material) {
