@@ -1,0 +1,57 @@
+# SupaBillford configuration
+# All item materials use Bukkit/Paper material names (for example DIAMOND,
+# RESPAWN_ANCHOR, NETHERITE_INGOT). Namespaced custom materials are accepted
+# when registered as Bukkit materials by another plugin.
+# Item options support name, lore, enchantments, custom-model-data, and flags.
+# Set match-item-meta: true to require matching metadata as well as material.
+# For custom plugin items, use their registered material when available.
+
+gui:
+  title: "<##3F3F3F>ʙɪʟʟꜰᴏʀᴅ"
+  rows: 6
+  filler:
+    material: BLACK_STAINED_GLASS_PANE
+    name: "&r"
+  filler-slots: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 13, 14, 15, 16, 17, 18, 22, 24, 26, 27, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 50, 51, 52, 53]
+  trade-slot: 23
+  result-slot: 25
+  book-slot: 49
+  preview-slots: [10, 11, 12, 19, 20, 21, 28, 29, 30]
+  trade-button:
+    material: HOPPER
+    name: "<##545454>ᴛʀᴀᴅᴇ"
+    lore:
+      - "&fClick to confirm the trade"
+      - ""
+      - "&7(you need the items in your inventory)"
+  summary-book:
+    material: BOOK
+    name: "<##10E336>ʙɪʟʟꜰᴏʀᴅ'ꜱ ᴛʀᴀᴅᴇ"
+
+trade:
+  match-item-meta: false
+  required-items:
+    - material: DIAMOND
+      amount: 1
+      lore-line: "&71x &fDiamond"
+    - material: OBSIDIAN
+      amount: 8
+      lore-line: "&78x &fObsidian"
+  reward:
+    material: RESPAWN_ANCHOR
+    amount: 1
+    lore-line: "&71x Respawn Anchor"
+
+messages:
+  no-permission: "&cYou don't have permission to use this."
+  missing-items: "&cYou do not have all the required contents. &fYou need the configured items in your inventory."
+  success: "&fBillford: &eFeel free to come back again later <3"
+  reloaded: "&aSupaBillford configuration reloaded."
+  invalid-item: "&cInvalid item material in the configuration: %material%"
+  inventory-full: "&cMake room in your inventory before trading."
+  item-saved: "&aSaved the item in your hand to trade-items.%key%."
+sounds:
+  enabled: true
+  fail: BLOCK_DISPENSER_FAIL
+  deny: ENTITY_VILLAGER_NO
+  success: ENTITY_EXPERIENCE_ORB_PICKUP
