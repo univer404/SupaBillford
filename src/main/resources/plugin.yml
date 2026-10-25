@@ -1,0 +1,22 @@
+name: SupaBillford
+version: 1.0.0
+main: com.supabillford.SupaBillford
+api-version: '1.21'
+description: Configurable Billford item-trading GUI.
+author: SuperNulled
+commands:
+  billford:
+    description: Opens Billford's trade GUI.
+    usage: /billford [reload]
+    aliases: [billfordtrade]
+  setbillforditem:
+    description: Saves the item in your hand to a named config item.
+    usage: /setbillforditem <key>
+    permission: supabillford.admin
+permissions:
+  supabillford.use:
+    description: Allows opening Billford's trade GUI.
+    default: true
+  supabillford.admin:
+    description: Allows reloading and editing Billford configuration.
+    default: op
